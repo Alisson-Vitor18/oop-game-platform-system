@@ -2,7 +2,6 @@
 *.exe
 *.out
 *.app
-program
 
 #Arquivos compilados
 *.o
