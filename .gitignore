@@ -1,0 +1,15 @@
+#Executáveis
+*.exe
+*.out
+*.app
+
+#Arquivos compilados
+*.o
+*.obj
+
+#Pasta de build
+build/
+cmake-build-*/
+
+#VS Code
+.vscode/
