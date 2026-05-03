@@ -25,6 +25,9 @@ class SalaDeJogo {
         //Obtém o nome da sala
         std::string getNomeSala();
 
+        //Obtém o nome do jogo
+        std::string getNomeJogoAtual();
+
         //Obtém o número máximo de participantes
         int getMaxParticipantes();
 

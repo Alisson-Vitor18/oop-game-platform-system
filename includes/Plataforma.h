@@ -12,16 +12,25 @@ class Plataforma {
 
     public:
         //Construtor para classe Plataforma
-        Plataforma(std::string nome);
+        Plataforma(const std::string& nome);
 
         //Informa o nome da plataforma
         void setNome(std::string nome);
 
         //Obtém o nome da plataforma
-        std::string getNome();
+        std::string getNome() const;
 
         //Adiciona uma sala à plataforma
-        void adicionarSala(const SalaDeJogo& sala);
+        void adicionarSala(const std::string& nomeSala, const Jogo& jogo);
+
+        //Lista as salas cadastradas à plataforma
+        void listarSalas();
+
+        //Obtém o nome do jogo
+        std::string obtemNomeDoJogo(int index);
+
+        //Retorna a quantidade de salas na plataforma
+        size_t qntdSalas();
 };
 
 #endif
