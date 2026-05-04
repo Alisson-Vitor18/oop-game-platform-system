@@ -18,8 +18,8 @@ std::string Plataforma::getNome() const {
     return this->nome;
 }
 
-void Plataforma::adicionarSala(const std::string& nomeSala, const Jogo& jogo) {
-    this->salas.emplace_back(nomeSala, jogo);
+void Plataforma::adicionarSala(const std::string& nomeSala, int maxParticipantes,const Jogo& jogo) {
+    this->salas.emplace_back(nomeSala, maxParticipantes,jogo);
 }
 
 void Plataforma::listarSalas() {
@@ -35,4 +35,8 @@ std::string Plataforma::obtemNomeDoJogo(int index) {
 
 size_t Plataforma::qntdSalas() {
     return this->salas.size();
+}
+
+SalaDeJogo& Plataforma::encontrarSala(int index) {
+    return salas.at(index - 1);
 }

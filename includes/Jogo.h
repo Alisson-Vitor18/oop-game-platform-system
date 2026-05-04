@@ -20,10 +20,10 @@ class Jogo {
         void setCategoria(std::string categoria);
 
         //Obtém o título do jogo atual
-        std::string getTitulo();
+        std::string getTitulo() const;
 
         //Obtém a categoria do jogo atual
-        std::string getCategoria();
+        std::string getCategoria() const;
 
 };
 

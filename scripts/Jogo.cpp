@@ -21,10 +21,10 @@ void Jogo::setCategoria(std::string categoria) {
     this->categoria = categoria;
 }
 
-std::string Jogo::getTitulo() {
+std::string Jogo::getTitulo() const {
     return this->titulo;
 }
 
-std::string Jogo::getCategoria() {
+std::string Jogo::getCategoria() const {
     return this->categoria;
 }

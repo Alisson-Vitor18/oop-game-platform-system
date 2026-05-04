@@ -21,7 +21,7 @@ class Plataforma {
         std::string getNome() const;
 
         //Adiciona uma sala à plataforma
-        void adicionarSala(const std::string& nomeSala, const Jogo& jogo);
+        void adicionarSala(const std::string& nomeSala, int maxParticipantes,const Jogo& jogo);
 
         //Lista as salas cadastradas à plataforma
         void listarSalas();
@@ -31,6 +31,9 @@ class Plataforma {
 
         //Retorna a quantidade de salas na plataforma
         size_t qntdSalas();
+
+        //Encontra uma sala específica na plataforma
+        SalaDeJogo& encontrarSala(int index);
 };
 
 #endif

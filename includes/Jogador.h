@@ -10,6 +10,9 @@ class Jogador {
     public:
         //Construtor para a classe Jogador
         Jogador(const Perfil& perfil);
+
+        //Exibe o perfil do jogador
+        void exibirDados() const;
 };
 
 #endif

@@ -14,7 +14,7 @@ void menuDeJogos(const std::string& nome);
 void listarPlataformasDisponiveis(const std::vector <Plataforma>& p);
 int lerInt(const std::string& msg);
 
-int main(void) {
+int main() {
     setlocale(LC_ALL, ".UTF-8");
 
     int optPlataforma = 0;
@@ -83,10 +83,12 @@ int main(void) {
 
                     std::cout << "Informe a categoria do jogo: ";
                     std::getline(std::cin, categoria);
+
+                    int maxParticipantes = lerInt("Informe o número máximo de participantes para essa sala: ");
                     
                     try {
                         Jogo jogo(nomeJogo, categoria);
-                        plataformas.at(indexPlataforma - 1).adicionarSala(nomeSala, jogo);
+                        plataformas.at(indexPlataforma - 1).adicionarSala(nomeSala, maxParticipantes,jogo);
                     }catch(const std::exception& e) {
                         std::cout << "\033[1;31m\nErro capturado: "<< e.what() <<"\033[0m"<< std::endl;
                         break;
@@ -125,8 +127,44 @@ int main(void) {
                                 std::cout << "\033[1;32mJogo Encerrado!\033[0m" << std::endl;
                                 break;
 
-                        }
+                            case 2: {
+                                if(plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getMaxParticipantes() <=
+                            plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getParticipantes()) {
+                                 std::cout << "\033[1;31m\nO limite de participantes para essa sala já foi atingido!\033[0m" << std::endl;
+                                 break;
+                            }
 
+                                std::cout << "\033[1;32mCrie seu perfil...\033[0m:" << std::endl;
+                                
+                                std::string nomeUsuario;
+
+                                std::cout << "\nInforme o nome do perfil do jogador: ";
+                                std::getline(std::cin, nomeUsuario);
+                                
+                                int rankingUsuario = lerInt("Informe o ranking do jogador: ");
+                                
+
+                                try {
+                                    Perfil perfil(nomeUsuario, rankingUsuario);
+                                    Jogador jogador(perfil);
+                                    plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).adicionarJogador(jogador);
+                                    plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).incrementaParticipantes();
+                                } catch(const std::exception& e) {
+                                    std::cout << "\033[1;31m\nErro capturado: "<< e.what() <<"\033[0m"<< std::endl;
+                                    break;
+                                }
+                                
+                                std::cout << "\033[1;32m\nJogador cadastrado com sucesso na sala "<< plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getNomeSala() << "!\033[0m\n";
+                                break;
+                            }
+
+                            case 3:
+                                std::cout << "\033[1;32m\nJogadores cadastrados na sala...\033[0m" << std::endl;
+                                plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).exibirJogadores() ;
+                                break;
+
+                        }
+ 
                     }while(optJogos != 4);
 
                     break;
@@ -202,10 +240,10 @@ int lerInt(const std::string& msg) {
             return valor;
 
         } catch(const std::invalid_argument&) {
-            std::cerr << "\nErro capturado: você não digitou um número válido do tipo inteiro.\n" << std::endl;   
+            std::cerr << "\n\033[1;31mErro capturado: você não digitou um número válido do tipo inteiro.\n\033[0m" << std::endl;   
         } catch(const std::out_of_range&) {
-            std::cerr << "\nErro: número fora do intervalo de int permitido para este compilador, " << 
-                  "para saber com precisão os intervalos permitidos constulte a opção 3 (Suporte) do menu inicial.\n" << std::endl;
+            std::cerr << "\n\033[1;31mErro capturado: número fora do intervalo de int permitido para este compilador, " << 
+                  "para saber com precisão os intervalos permitidos constulte a opção 3 (Suporte) do menu inicial.\n\033[0m" << std::endl;
         }
     }
 }

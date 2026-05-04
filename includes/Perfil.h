@@ -12,7 +12,7 @@ class Perfil{
     
     public:
         //Construtor para a classe Perfil
-        Perfil(const std::string& nome);
+        Perfil(const std::string& nome, const int& ranking);
 
         //Informa o nome do perfil
         void setNome(std::string nome);
