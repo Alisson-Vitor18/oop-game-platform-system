@@ -3,6 +3,7 @@
 
 #include "Jogo.h"
 #include "Jogador.h"
+#include "Perfil.h"
 #include <vector>
 
 class SalaDeJogo {
@@ -39,7 +40,10 @@ class SalaDeJogo {
         int getMaxParticipantes() const ;
 
         //Adiciona jogador à sala de jogos
-        void adicionarJogador(const Jogador& jogador);
+        void adicionarJogador(const Perfil& perfil);
+
+        //Encontra um jogador específico
+        Jogador& encontrarJogador(int index);
 
         //Exibe os jogadores na sala escolhida
         void exibirJogadores();

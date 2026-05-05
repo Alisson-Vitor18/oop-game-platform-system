@@ -1,6 +1,5 @@
 #include <stdexcept>
 #include <iostream>
-#include <limits>
 #include <string>
 #include "Plataforma.h"
 #include "SalaDeJogo.h"
@@ -13,6 +12,8 @@ void menuSalaDeJogo();
 void menuDeJogos(const std::string& nome);
 void listarPlataformasDisponiveis(const std::vector <Plataforma>& p);
 int lerInt(const std::string& msg);
+void clear();
+void suporte();
 
 int main() {
     setlocale(LC_ALL, ".UTF-8");
@@ -27,6 +28,8 @@ int main() {
         menuPlataforma();
         optPlataforma = lerInt("Informe uma opção: ");
         std::cout<<std::endl;
+
+        clear();
 
         switch (optPlataforma)
         {
@@ -68,6 +71,8 @@ int main() {
                 optSalaDeJogos = lerInt("Informe uma opção: ");
                 std::cout << std::endl;
 
+                clear();
+
                 switch (optSalaDeJogos)
                 {
                 case 1: {
@@ -94,7 +99,7 @@ int main() {
                         break;
                     }
 
-                    std::cout << "\033[1;32mSala criada com sucesso!\033[0m\n";
+                    std::cout << "\033[1;32m\nSala criada com sucesso!\033[0m\n";
                     break;
                 }
                 
@@ -119,6 +124,8 @@ int main() {
                         optJogos = lerInt("Informe uma opção: ");
                         std::cout << std::endl;
 
+                        clear();
+
                         switch(optJogos) {
                             case 1:
                                 std::cout << "Reproduzindo " << plataformas.at(indexPlataforma - 1).obtemNomeDoJogo(indexSalaDeJogos) << "...\n"<<std::endl;
@@ -130,11 +137,11 @@ int main() {
                             case 2: {
                                 if(plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getMaxParticipantes() <=
                             plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getParticipantes()) {
-                                 std::cout << "\033[1;31m\nO limite de participantes para essa sala já foi atingido!\033[0m" << std::endl;
+                                 std::cout << "\033[1;31mO limite de participantes para essa sala já foi atingido!\033[0m" << std::endl;
                                  break;
                             }
 
-                                std::cout << "\033[1;32mCrie seu perfil...\033[0m:" << std::endl;
+                                std::cout << "\033[1;32mCrie seu perfil...\033[0m" << std::endl;
                                 
                                 std::string nomeUsuario;
 
@@ -146,23 +153,39 @@ int main() {
 
                                 try {
                                     Perfil perfil(nomeUsuario, rankingUsuario);
-                                    Jogador jogador(perfil);
-                                    plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).adicionarJogador(jogador);
+                                    plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).adicionarJogador(perfil);
                                     plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).incrementaParticipantes();
                                 } catch(const std::exception& e) {
                                     std::cout << "\033[1;31m\nErro capturado: "<< e.what() <<"\033[0m"<< std::endl;
                                     break;
                                 }
+
+                                std::string conquista = std::string("\033[1;34mVeterano da Sala ") + plataformas.at(indexPlataforma - 1)
+                                    .encontrarSala(indexSalaDeJogos)
+                                    .getNomeSala() +
+                                    "\033[0m";
+
+                                int indexAtual = plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getParticipantes();
+                                plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).encontrarJogador(indexAtual).adicionarConquista(conquista);
                                 
                                 std::cout << "\033[1;32m\nJogador cadastrado com sucesso na sala "<< plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getNomeSala() << "!\033[0m\n";
                                 break;
                             }
 
                             case 3:
+                                if(plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).getParticipantes() <= 0) {
+                                    std::cout << "\033[1;31mNenhum jogador cadastrado nesta sala!\033[0m" << std::endl;
+                                    break;
+                                }
+
                                 std::cout << "\033[1;32m\nJogadores cadastrados na sala...\033[0m" << std::endl;
                                 plataformas.at(indexPlataforma - 1).encontrarSala(indexSalaDeJogos).exibirJogadores() ;
+                                std::cout << "\033[1;32m................................\033[0m" << std::endl;
                                 break;
-
+                            
+                            default:
+                                std::cout << "\033[1;31mOpção inválida tente novamente!\033[0m" << std::endl;
+                                break;
                         }
  
                     }while(optJogos != 4);
@@ -171,6 +194,7 @@ int main() {
                 }
                 
                 default:
+                    std::cout << "\033[1;31mOpção inválida tente novamente!\033[0m" << std::endl;
                     break;
                 }
 
@@ -180,6 +204,7 @@ int main() {
         }
         
         default:
+            std::cout << "\033[1;31mOpção inválida tente novamente!\033[0m" << std::endl;
             break;
         }
 
@@ -246,4 +271,9 @@ int lerInt(const std::string& msg) {
                   "para saber com precisão os intervalos permitidos constulte a opção 3 (Suporte) do menu inicial.\n\033[0m" << std::endl;
         }
     }
+}
+
+void clear()
+{
+    std::cout << "\033[2J\033[H";
 }

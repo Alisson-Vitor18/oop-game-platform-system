@@ -46,8 +46,12 @@ int SalaDeJogo::getMaxParticipantes() const {
     return this->maxParticipantes;
 }
 
-void SalaDeJogo::adicionarJogador(const Jogador& jogador) {
-    this->jogadores.push_back(jogador);
+void SalaDeJogo::adicionarJogador(const Perfil& perfil) {
+    this->jogadores.emplace_back(perfil);
+}
+
+Jogador& SalaDeJogo::encontrarJogador(int index) {
+    return this->jogadores.at(index - 1);
 }
 
 void SalaDeJogo::exibirJogadores() {

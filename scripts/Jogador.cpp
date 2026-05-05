@@ -15,3 +15,7 @@ void Jogador::exibirDados() const {
     }
     std::cout << std::endl;
 }
+
+void Jogador::adicionarConquista(const std::string& conquista) {
+    this->perfilJogador.setConquista(conquista);
+}

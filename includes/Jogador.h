@@ -13,6 +13,9 @@ class Jogador {
 
         //Exibe o perfil do jogador
         void exibirDados() const;
+
+        //Adiciona uma nova conquista ao perfil
+        void adicionarConquista(const std::string& conquista);
 };
 
 #endif
