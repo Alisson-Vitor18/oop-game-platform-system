@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <string>
+#include <limits>
 #include "Plataforma.h"
 #include "SalaDeJogo.h"
 #include "Jogador.h"
@@ -202,6 +203,10 @@ int main() {
 
             break;
         }
+
+        case 3:
+            suporte();
+            break;
         
         default:
             std::cout << "\033[1;31mOpção inválida tente novamente!\033[0m" << std::endl;
@@ -273,7 +278,38 @@ int lerInt(const std::string& msg) {
     }
 }
 
-void clear()
-{
+void clear() {
     std::cout << "\033[2J\033[H";
+}
+
+void suporte() {
+    std::cout << "\033[1;32m\n========== SUPORTE ==========\033[0m\n" << std::endl;
+
+    std::cout << "\033[1;34mComo usar a plataforma:\033[0m" << std::endl;
+    std::cout << "1. Crie uma plataforma para armazenar suas salas de jogos." << std::endl;
+    std::cout << "2. Entre em uma plataforma existente para gerenciar salas." << std::endl;
+    std::cout << "3. Crie uma sala informando nome, jogo, categoria e limite de jogadores." << std::endl;
+    std::cout << "4. Entre em uma sala para jogar ou cadastrar jogadores." << std::endl;
+    std::cout << "5. Cadastre jogadores informando nome e ranking." << std::endl;
+    std::cout << "6. Liste os jogadores cadastrados na sala sempre que desejar." << std::endl;
+
+    std::cout << "\n\033[1;34mInformações importantes:\033[0m" << std::endl;
+    std::cout << "- Sempre informe apenas números inteiros ao escolher opções do menu." << std::endl;
+    std::cout << "- Índices inválidos de plataformas ou salas serão rejeitados." << std::endl;
+    std::cout << "- Cada sala possui um limite máximo de participantes." << std::endl;
+    std::cout << "- Ao entrar em uma sala, o jogador recebe automaticamente uma conquista especial." << std::endl;
+    std::cout << "- Intervalo de int permitido pelo seu compilador: "<< 
+        std::numeric_limits<int>::min() << " até " << std::numeric_limits<int>::max() << "." << std::endl;
+
+    std::cout << "\n\033[1;34mNavegação:\033[0m" << std::endl;
+    std::cout << "- Menu Plataforma: gerencia plataformas." << std::endl;
+    std::cout << "- Menu Sala: gerencia salas de jogo." << std::endl;
+    std::cout << "- Menu Jogo: permite jogar e gerenciar jogadores." << std::endl;
+
+    std::cout << "\n\033[1;31mDica:\033[0m" << std::endl;
+    std::cout << "Caso ocorra algum erro de entrada, leia a mensagem exibida e tente novamente." << std::endl;
+    std::cout << "\nPara relatar problemas ou enviar sugestões de melhoria, entre em contato com o desenvolvedor pelo e-mail..." << std::endl;
+    std::cout << "\033[1;32m->\033[0m alissonvpb18@gmail.com" << std::endl;
+    std::cout << "\n\033[1;32mPressione ENTER para voltar...\033[0m";
+    std::cin.get();
 }
